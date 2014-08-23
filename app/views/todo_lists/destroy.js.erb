@@ -1,0 +1,3 @@
+$('a[data-remote]').bind('ajax:success', function(event, data, status, xhr) {
+  $(this).closest("#todo_list_<%= @todo_list.id %>").fadeOut();
+});

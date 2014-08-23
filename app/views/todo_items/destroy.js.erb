@@ -1,0 +1,9 @@
+$('a[data-remote]').bind('ajax:success', function(event, data, status, xhr) {
+  $(this).closest('.list-group-item').fadeOut();
+});
+
+
+// $( document ).ajaxSuccess(function( event, request, settings ) {
+  
+// });
+

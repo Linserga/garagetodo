@@ -1,0 +1,54 @@
+  <% @todo_lists.each do |todo_list| %>
+    <div id="<%= dom_id(todo_list)%>">
+      <div class='navbar navbar-default' role='navigation'>
+        <div class='container-fluid'>
+          <div class='navbar-header'>
+            <div class='navbar-brand'>
+              <span class='glyphicon glyphicon-list-alt'></span>
+              <%= todo_list.title %>
+            </div>
+          </div><!--end navbar-header -->
+          <div class="collapse navbar-collapse">
+            <div class='nav navbar-right navbar-brand'>
+              <%= link_to edit_todo_list_path(todo_list) do%>  
+                <span class='glyphicon glyphicon-pencil'></span>
+              <%end%>  |  
+              <%= link_to todo_list, method: :delete, remote: true do%>
+                <span class='glyphicon glyphicon-trash'></span>
+              <%end%>
+            </div><!--end nav navbar-nav navbar-right-->
+          </div><!--end collapse navbar-collapse -->
+        </div><!--end container -->
+      </div><!--end navbar navbar-default -->
+        <%= render partial: 'partials/todo_item_form', locals: {todo_list: todo_list}%>
+        <div class="list-group">        
+            	<% todo_list.todo_items.priority.each do |todo_item| %>
+            		
+                <% if todo_item.errors.any? %>
+                  <ul>
+                    <% @todo_item.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+
+                <div class='list-group-item'>
+                    <%= todo_item.content%> 
+                    <div class='nav navbar-right'>
+                      <%= link_to increment_priority_todo_list_todo_item_path(todo_list, todo_item), method: :patch do%>
+                        <span class='glyphicon glyphicon-circle-arrow-up'></span>
+                      <%end%> |                     
+                      <%= link_to edit_todo_list_todo_item_path(todo_list, todo_item) do %>
+                          <span class='glyphicon glyphicon-pencil'></span>
+                      <%end%> |                      
+                      <%= link_to todo_list_todo_item_path(todo_list, todo_item), method: :delete, remote: true, id: 'delete_item' do%>
+                        <span class='glyphicon glyphicon-trash'></span>
+                    </div>
+                    <%end%>
+                </div><!--end list-group-item-->
+            	<%end%>        
+        </div><!--end list-group-->
+      </div><!--end dom_id -->
+  <% end %>
+<br>
+<%= link_to 'Add TODO List', new_todo_list_path, class: 'btn btn-primary'  %>

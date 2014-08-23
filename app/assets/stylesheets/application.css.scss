@@ -1,0 +1,17 @@
+$navbar-default-bg: #4671B1;
+$navbar-default-link-color: #fff;
+
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.glyphicon {
+	color: #D2D2D2
+}
+
+.list-group-item {
+
+	&:hover{
+		background: #FCFED5;
+	}
+}
