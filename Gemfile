@@ -23,3 +23,8 @@ group :test do
 	gem 'capybara'
 	gem 'shoulda-matchers', require: false
 end
+
+group :production do
+	gem 'pg'
+	gem 'rails_12factor'
+end
