@@ -20,6 +20,23 @@ project_id
 
 ----------------------------------------------------
 
+1. SELECT distinct status FROM tasks ORDER BY status ASC;
+
+2. SELECT count(*) as count FROM tasks GROUP BY project_id ORDER BY count DESC; 
+
+3. SELECT count(*) as count, projects.name FROM tasks INNER JOIN projects ON tasks.project_id = projects.id GROUP BY projects.id ORDER BY projects.name;
+4. SELECT * FROM tasks WHERE name LIKE 'N%';
+
+5. SELECT projects.name, count(*) as count FROM projects RIGHT OUTER JOIN tasks on projects.id = tasks.project_id WHERE projects.name LIKE "%a%" GROUP BY projects.id;
+
+6. SELECT name, count(id) as quantity FROM tasks GROUP BY name HAVING quantity > 1; 
+
+7. SELECT tasks.name, count(tasks.id) as quantity FROM tasks inner JOIN projects on tasks.project_id = projects.id WHERE projects.name = 'Garage' GROUP BY tasks.name, tasks.status HAVING quantity > 1 ORDER BY quantity desc;
+
+8. SELECT projects.name, count(tasks.status) as quantity FROM projects JOIN tasks on projects.id = tasks.project_id WHERE tasks.status = 'completed' GROUP BY projects.name HAVING quantity > 10 ORDER BY tasks.project_id; 
+
+----------------------------------------------------
+
 class Task < ActiveRecord::Base
   belongs_to :project
 end
@@ -28,6 +45,7 @@ class Project < ActiveRecord::Base
 	has_many :tasks
 end
 
+----------------------------------------------------
 1. Task.select(:status).order(:status).distinct
 
 2. Task.all.group(:project_id).count.sort_by{|k,v|v}.reverse
